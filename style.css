@@ -487,3 +487,15 @@ h1 {
     font-weight: 600;
     cursor: pointer;
 } 
+
+.btn-sifirla {
+    width: 50%;
+    margin: 10px auto 0 auto; /* ortalar */
+    display: block;
+
+    background-color: #a94444; /* koyu kırmızı */
+}
+
+.btn-sifirla:hover {
+    background-color: #922f2f;
+}
