@@ -1,0 +1,489 @@
+/* =========================================
+   1. GENEL AYARLAR VE ARKA PLAN
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+#app-container {
+    background: white;
+    width: 95%;
+    max-width: 450px;
+    min-height: 550px;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    padding: 26px 25px 30px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    margin: 20px 0;
+}
+
+/* =========================================
+   2. PROFİL HEADER
+   ========================================= */
+#profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid #f8dfe8;
+    background: #fff6f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Eğer fotoğraf yoksa emoji görünürse düzgün dursun diye */
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.profile-texts {
+    min-width: 0;
+}
+
+.profile-texts h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.profile-texts p {
+    display: none;
+}
+
+#btn-profil-git {
+    border: none;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background-color: #fdeff4;
+    color: #b25f7d;
+    box-shadow: 0 6px 14px rgba(240, 190, 205, 0.35);
+    white-space: nowrap;
+}
+
+#btn-profil-git:hover {
+    background-color: #fbe6ee;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(240, 190, 205, 0.42);
+}
+
+#btn-profil-git:active {
+    transform: translateY(1px);
+}
+
+/* =========================================
+   3. ANA MENÜ
+   ========================================= */
+#main-menu {
+    position: relative;
+    padding: 8px 0;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+#main-menu p {
+    margin-bottom: 22px;
+    font-size: 16px;
+    color: #34495e;
+}
+
+.menu-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.stat-box {
+    background-color: #e7f3f1;
+    color: #0f766e;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(15, 118, 110, 0.12);
+    min-width: 80px;
+    text-align: center;
+}
+
+.menu-btn {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    margin: 18px 0;
+    background-color: #0f766e;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 14px rgba(15, 118, 110, 0.28);
+}
+
+.menu-btn:hover {
+    background-color: #115e59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(15, 118, 110, 0.34);
+}
+
+.menu-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 8px rgba(15, 118, 110, 0.25);
+}
+
+/* =========================================
+   4. KART TASARIMI (FLASHCARD)
+   ========================================= */
+.flashcard-container {
+    perspective: 1000px;
+    margin: 20px 0;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.flashcard {
+    width: 100%;
+    min-height: 380px;
+    height: auto;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.card-front {
+    background-color: #fff;
+    border-color: #0f766e;
+}
+
+.card-back {
+    background-color: #fcfdfd;
+    border-color: #2ecc71;
+    transform: rotateY(180deg);
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.hint {
+    font-size: 12px;
+    color: #bdc3c7;
+    margin-top: 20px;
+}
+
+/* Mobilde dokunmatik seçimleri engellemek için */
+.card-front,
+.card-back {
+    pointer-events: none;
+}
+
+/* =========================================
+   5. İÇERİK DETAYLARI (İSİMLER)
+   ========================================= */
+#template-isim,
+#template-fiil {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.artikel {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f766e;
+    margin: 0 0 15px 0;
+    text-transform: lowercase;
+    width: 100%;
+}
+
+#card-turkish {
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+#example-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+    width: 100%;
+}
+
+.example-de {
+    font-style: italic;
+    color: #2c3e50;
+    font-size: 15px;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.example-tr {
+    font-size: 13px;
+    color: #95a5a6;
+    width: 100%;
+}
+
+/* =========================================
+   6. FİİL ŞABLONU (GRID)
+   ========================================= */
+.fiil-grid {
+    display: grid;
+    grid-template-columns: 0.7fr 1.1fr 2px 1.8fr;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #edf2f7;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.zamirler p {
+    font-weight: bold;
+    color: #34495e;
+    text-align: left;
+    margin: 3px 0;
+    font-size: 12px;
+}
+
+.cekimler p {
+    color: #27ae60;
+    text-align: left;
+    margin: 3px 0;
+    font-size: 12px;
+}
+
+.mavi-cizgi {
+    background-color: #0f766e;
+    height: 80%;
+    width: 2px;
+    justify-self: center;
+}
+
+.gecmis-zaman {
+    padding-left: 5px;
+    text-align: left;
+}
+
+.gecmis-zaman .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #bdc3c7;
+    margin-bottom: 2px;
+}
+
+.past-val {
+    font-weight: bold;
+    color: #e67e22;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+#template-fiil h2,
+#fiil-turkish {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   7. ALT BUTONLAR VE NAVİGASYON
+   ========================================= */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 25px 0 10px 0;
+}
+
+.btn-bilmiyorum,
+.btn-biliyorum {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.btn-bilmiyorum {
+    background-color: #a4161a;
+    box-shadow: 0 4px 10px rgba(164, 22, 26, 0.25);
+}
+
+.btn-biliyorum {
+    background-color: #2d6a4f;
+    box-shadow: 0 4px 10px rgba(45, 106, 79, 0.25);
+}
+
+.btn-bilmiyorum:hover {
+    background-color: #ba181b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(164, 22, 26, 0.35);
+}
+
+.btn-biliyorum:hover {
+    background-color: #40916c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(45, 106, 79, 0.35);
+}
+
+.btn-bilmiyorum:active,
+.btn-biliyorum:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+#btn-geri {
+    background: none;
+    border: none;
+    color: #95a5a6;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#btn-geri:hover {
+    color: #7f8c8d;
+    text-decoration: underline;
+}
+
+/* =========================================
+   8. İSTATİSTİK EKRANI
+   ========================================= */
+#profil-screen {
+    padding-top: 6px;
+}
+
+#profil-screen h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+#profil-ogrenilen-sayi {
+    margin-bottom: 18px;
+    color: #555;
+    font-weight: 600;
+}
+
+.profil-liste-kapsayici {
+    max-height: 360px;
+    overflow-y: auto;
+    border-radius: 14px;
+    background: #fafafa;
+    padding: 8px;
+}
+
+.profil-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.profil-tablosu th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: #2c3e50;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.profil-tablosu td {
+    padding: 10px 12px;
+    font-size: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#btn-profil-geri {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    cursor: pointer;
+} 

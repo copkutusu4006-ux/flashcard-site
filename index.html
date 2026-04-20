@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almanca Flashcard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+
+        <div id="profile-header">
+            <div class="profile-info">
+                <div class="avatar">
+                    <img src="a.jpg" alt="Profil Fotoğrafı">
+                </div>
+
+                <div class="profile-texts">
+                    <h3>Prenses</h3>
+                </div>
+            </div>
+
+            <button id="btn-profil-git">İstatistiklere Git</button>
+        </div>
+
+        <div id="custom-alert" style="display:none;"></div>
+
+        <div id="main-menu">
+            <div class="menu-stats">
+                <div class="stat-box left" id="toplam-kelime">Toplam: 0</div>
+                <div class="stat-box right" id="biliyorum-sayac">0/0</div>
+            </div>
+
+            <h1>Almanca Pratik 🇩🇪</h1>
+            <p>Çalışmak istediğin kategoriyi seç:</p>
+            <button class="menu-btn" id="btn-isimler">İsimler</button>
+            <button class="menu-btn" id="btn-duzenli">Düzenli Fiiller</button>
+            <button class="menu-btn" id="btn-duzensiz">Düzensiz Fiiller</button>
+            <button class="menu-btn" id="btn-karisik">Karışık</button>
+        </div>
+
+        <div id="profil-screen" style="display: none;" >
+            <h2>İstatistikler</h2>
+            <p id="profil-ogrenilen-sayi">0 Kelime Öğrenildi</p>
+
+            <div class="profil-liste-kapsayici">
+                <table class="profil-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Almanca</th>
+                            <th>Türkçe</th>
+                        </tr>
+                    </thead>
+                    <tbody id="profil-kelime-listesi"></tbody>
+                </table>
+            </div>
+
+            <button id="btn-profil-geri">Kapat</button>
+        </div>
+
+        <div id="flashcard-screen" style="display: none;">
+            <div class="flashcard-container">
+                <div class="flashcard">
+                    
+                    <div class="card-front">
+                        <h2 id="card-german">Haus</h2>
+                        <p class="hint">(Kartı çevirmek için dokun)</p>
+                    </div>
+                    
+                    <div class="card-back">
+                        <div id="content-wrapper">
+                            
+                            <div id="template-isim">
+                                <h2 id="card-turkish">Ev</h2>
+                                <p id="card-artikel" class="artikel">das</p>
+                            </div>
+
+                            <div id="template-fiil" style="display: none;">
+                                <h2 id="fiil-turkish">Yapmak</h2>
+                                <div class="fiil-grid">
+                                    <div class="zamirler">
+                                        <p>ich</p>
+                                        <p>du</p>
+                                        <p>er/sie/es</p>
+                                        <p>wir</p>
+                                        <p>ihr</p>
+                                        <p>sie/Sie</p>
+                                    </div>
+                                    <div class="cekimler" id="fiil-cekimleri"></div>
+                                    <div class="mavi-cizgi"></div>
+                                    <div class="gecmis-zaman">
+                                        <p class="label">Geçmiş Zaman</p>
+                                        <p id="fiil-gecmis" class="past-val"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="example-container">
+                            <p id="card-example" class="example-de"></p>
+                            <p id="card-example-tr" class="example-tr"></p>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="action-buttons">
+                <button class="btn-bilmiyorum">Tekrar Et</button>
+                <button class="btn-biliyorum">Öğrendim</button>
+            </div>
+            
+            <button id="btn-geri">Ana Menüye Dön</button>
+        </div>
+        
+    </div>
+
+    <script src="kelimeler.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
