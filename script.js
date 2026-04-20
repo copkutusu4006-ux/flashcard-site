@@ -115,19 +115,16 @@ function yeniTurHazirla() {
     let bilinmeyenler = kategoriKelimeleri.filter(k => k.durum !== 'biliyorum');
     let bilinenler = kategoriKelimeleri.filter(k => k.durum === 'biliyorum');
 
-    // Eğer hepsi biliyorsam -> sıfırla
+    // Eğer kategorideki tüm kelimeler "biliyorum" olduysa sadece durumları sıfırla
     if (bilinmeyenler.length === 0 && bilinenler.length > 0) {
         kategoriKelimeleri.forEach(kelime => {
             kelime.durum = 'bilmiyorum';
-           
         });
 
         verileriKaydet();
         menuIstatistikleriniGuncelle();
+        bildirimGoster('Bu kategorideki tüm kelimeler bitti. Liste baştan başlatıldı.');
 
-        bildirimGoster('Tebrikler! Bu kategorideki tüm kelimeler bitmişti. Liste baştan başlatıldı.');
-
-        // yeniden hesapla
         kategoriKelimeleri = kategoriyeGoreListeGetir(aktifKategori);
         bilinmeyenler = kategoriKelimeleri.filter(k => k.durum !== 'biliyorum');
         bilinenler = kategoriKelimeleri.filter(k => k.durum === 'biliyorum');
@@ -142,6 +139,12 @@ function yeniTurHazirla() {
     aktifKelimeler = [...secilenBilinmeyenler, ...secilenBilinenler];
     karistir(aktifKelimeler);
 
+    if (aktifKelimeler.length === 0) {
+        bildirimGoster('Gösterilecek kelime bulunamadı.');
+        anaMenuyeDon();
+        return;
+    }
+
     aktifIndex = 0;
 
     mainMenu.style.display = 'none';
@@ -149,7 +152,6 @@ function yeniTurHazirla() {
 
     kartiGoster();
 }
-
 // 7) KART GÖSTER
 function kartiGoster() {
     if (aktifKelimeler.length === 0) {
@@ -158,28 +160,26 @@ function kartiGoster() {
         return;
     }
 
-    // Tur bittiyse aynı kategoride yeni tur başlat
+    // Tur bittiyse ana menüye dön
     if (aktifIndex >= aktifKelimeler.length) {
-        yeniTurHazirla();
+        bildirimGoster('Seans bitti!');
+        setTimeout(() => {
+            anaMenuyeDon();
+        }, 700);
         return;
     }
 
     const guncelKelime = aktifKelimeler[aktifIndex];
 
-    // Her yeni kart ön yüzde başlasın
     cardInner.classList.remove('flipped');
-
-    // Ön yüz
     cardGerman.innerText = guncelKelime.almanca || '';
 
-    // Arka yüz içerik tipi
     if (guncelKelime.kategori === 'duzenli' || guncelKelime.kategori === 'duzensiz') {
         fiilKartiniDoldur(guncelKelime);
     } else {
         isimKartiniDoldur(guncelKelime);
     }
 
-    // Örnek cümle
     ornekCumleyiDoldur(guncelKelime);
 }
 
@@ -340,6 +340,7 @@ function yukluVeriyiGetir() {
                 // Eğer varsa ilerlemesini (durum, ogrenildi) SAKLA,
                 // Ama metinlerde (almanca, turkce, ornek_cumle) düzeltme yaptıysan onları GÜNCELLE.
                 kayitliKelime.almanca = anaKelime.almanca;
+                kayitliKelime.artikel = anaKelime.artikel;
                 kayitliKelime.turkce = anaKelime.turkce;
                 kayitliKelime.kategori = anaKelime.kategori;
                 kayitliKelime.ornek_cumle = anaKelime.ornek_cumle;
