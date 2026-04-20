@@ -30,6 +30,7 @@ const fiilCekimleri = document.getElementById('fiil-cekimleri');
 const fiilGecmis = document.getElementById('fiil-gecmis');
 
 const toplamKelimeEl = document.getElementById('toplam-kelime');
+const btnSifirla = document.getElementById('btn-sifirla');
 const biliyorumSayacEl = document.getElementById('biliyorum-sayac');
 const customAlertEl = document.getElementById('custom-alert');
 const btnProfilGit = document.getElementById('btn-profil-git');
@@ -56,6 +57,16 @@ function butonlariBagla() {
 
     document.getElementById('btn-geri').addEventListener('click', anaMenuyeDon);
 
+
+    if (btnSifirla) {
+    btnSifirla.addEventListener('click', () => {
+        const onay = confirm('Kart ilerlemesi sıfırlansın mı? Öğrenilen kelimeler korunacak.');
+        if (!onay) return;
+
+        uygulamaIlerlemesiniSifirla();
+    });
+}
+
     if (btnProfilGit) {
     btnProfilGit.addEventListener('click', () => {
         if (profileHeader) {
@@ -80,6 +91,8 @@ if (btnProfilGeri) {
         mainMenu.style.display = 'block';
     });
 }
+
+
 
     cardInner.addEventListener('click', () => {
         cardInner.classList.toggle('flipped');
@@ -428,4 +441,30 @@ function profilIstatistikleriniGuncelle() {
             </tr>
         `;
     });
+}
+
+function uygulamaIlerlemesiniSifirla() {
+    kelimeListesi.forEach(kelime => {
+        kelime.durum = 'bilmiyorum';
+    });
+
+    verileriKaydet();
+    menuIstatistikleriniGuncelle();
+    profilIstatistikleriniGuncelle();
+
+    aktifKelimeler = [];
+    aktifIndex = 0;
+    aktifKategori = null;
+
+    cardInner.classList.remove('flipped');
+
+    profilScreen.style.display = 'none';
+    flashcardScreen.style.display = 'none';
+    mainMenu.style.display = 'block';
+
+    if (profileHeader) {
+        profileHeader.style.display = 'flex';
+    }
+
+    bildirimGoster('Kart ilerlemesi sıfırlandı. Öğrenilen kelimeler korunuyor.');
 }
