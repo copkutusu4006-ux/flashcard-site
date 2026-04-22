@@ -242,10 +242,50 @@ h1 {
     margin-top: 20px;
 }
 
-/* Mobilde dokunmatik seçimleri engellemek için */
 .card-front,
 .card-back {
-    pointer-events: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-face-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.btn-ses {
+    background: transparent;
+    color: #b63061;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    box-shadow: none;
+    transition: all 0.2s ease;
+    z-index: 10;
+    text-decoration: none;
+    outline: none;
+}
+
+.btn-ses:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+.btn-ses:focus,
+.btn-ses:active,
+.btn-ses:focus-visible {
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
 }
 
 /* =========================================
@@ -498,4 +538,12 @@ h1 {
 
 .btn-sifirla:hover {
     background-color: #922f2f;
+}
+
+.card-ses-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
 }
