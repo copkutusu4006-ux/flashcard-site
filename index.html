@@ -39,7 +39,7 @@
             <button class="menu-btn btn-sifirla" id="btn-sifirla">Sıfırla</button>
         </div>
 
-        <div id="profil-screen" style="display: none;" >
+        <div id="profil-screen" style="display: none;">
             <h2>İstatistikler</h2>
             <p id="profil-ogrenilen-sayi">0 Kelime Öğrenildi</p>
 
@@ -60,67 +60,71 @@
 
         <div id="flashcard-screen" style="display: none;">
             <div class="flashcard-container">
-    <div class="flashcard">
-        
-        <div class="card-front">
-            <div class="card-face-content">
-                <h2 id="card-german">Haus</h2>
-                <p class="hint">(Kartı çevirmek için dokun)</p>
-            </div>
+                <div class="flashcard">
 
-            <button class="btn-ses btn-seslendir">🔊 Dinle</button>
-        </div>
-        
-        <div class="card-back">
-    <div class="card-face-content">
-        <div id="content-wrapper">
-            
-            <div id="template-isim">
-                <h2 id="card-turkish">Ev</h2>
-                <p id="card-artikel" class="artikel">das</p>
-            </div>
+                    <div class="card-front">
+                        <div class="card-face-content">
+                            <h2 id="card-german">Haus</h2>
+                            <p class="hint">(Kartı çevirmek için dokun)</p>
+                        </div>
 
-            <div id="template-fiil" style="display: none;">
-                <h2 id="fiil-turkish">Yapmak</h2>
-                <div class="fiil-grid">
-                    <div class="zamirler">
-                        <p>ich</p>
-                        <p>du</p>
-                        <p>er/sie/es</p>
-                        <p>wir</p>
-                        <p>ihr</p>
-                        <p>sie/Sie</p>
+                        <button class="btn-ses btn-seslendir">🔊 Dinle</button>
                     </div>
-                    <div class="cekimler" id="fiil-cekimleri"></div>
-                    <div class="mavi-cizgi"></div>
-                    <div class="gecmis-zaman">
-                        <p class="label">Geçmiş Zaman</p>
-                        <p id="fiil-gecmis" class="past-val"></p>
+
+                    <div class="card-back">
+                        <div class="card-face-content">
+                            <div id="content-wrapper">
+
+                                <div id="template-isim">
+                                    <h2 id="card-turkish">Ev</h2>
+                                    <p id="card-artikel" class="artikel">das</p>
+                                </div>
+
+                                <div id="template-fiil" style="display: none;">
+                                    <h2 id="fiil-turkish">Yapmak</h2>
+                                    <div class="fiil-grid">
+                                        <div class="zamirler">
+                                            <p>ich</p>
+                                            <p>du</p>
+                                            <p>er/sie/es</p>
+                                            <p>wir</p>
+                                            <p>ihr</p>
+                                            <p>sie/Sie</p>
+                                        </div>
+                                        <div class="cekimler" id="fiil-cekimleri"></div>
+                                        <div class="mavi-cizgi"></div>
+                                        <div class="gecmis-zaman">
+                                            <p class="label">Geçmiş Zaman</p>
+                                            <p id="fiil-gecmis" class="past-val"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="example-container">
+                                <p id="card-example" class="example-de"></p>
+                                <p id="card-example-tr" class="example-tr"></p>
+                            </div>
+                        </div>
+
+                        <div class="card-ses-buttons">
+                            <button class="btn-ses btn-ornek-oku">🔊 Örnek Cümleyi Oku</button>
+                            <button class="btn-ses btn-seslendir">🔊 Dinle</button>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-        
-        <div id="example-container">
-            <p id="card-example" class="example-de"></p>
-            <p id="card-example-tr" class="example-tr"></p>
-        </div>
-    </div>
-
-    <div class="card-ses-buttons">
-        <button class="btn-ses btn-ornek-oku">🔊 Örnek Cümleyi Oku</button>
-        <button class="btn-ses btn-seslendir">🔊 Dinle</button>
-    </div>
-</div>
 
             <div class="action-buttons">
                 <button class="btn-bilmiyorum">Tekrar Et</button>
                 <button class="btn-biliyorum">Öğrendim</button>
             </div>
-            
+
             <button id="btn-geri">Ana Menüye Dön</button>
         </div>
-        
+
     </div>
 
     <script src="kelimeler.js"></script>
