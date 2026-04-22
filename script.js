@@ -9,6 +9,7 @@ let kelimeListesi = yukluVeriyiGetir();
 let aktifKelimeler = [];
 let aktifIndex = 0;
 let aktifKategori = null;
+let mevcutVoices = [];
 
 // 2) HTML ELEMANLARI
 const mainMenu = document.getElementById('main-menu');
@@ -40,10 +41,14 @@ const profileHeader = document.getElementById('profile-header');
 const profilOgrenilenSayiEl = document.getElementById('profil-ogrenilen-sayi');
 const profilKelimeListesiEl = document.getElementById('profil-kelime-listesi');
 
+const btnSeslendirButonlari = document.querySelectorAll('.btn-seslendir');
+const btnOrnekOkuButonu = document.querySelector('.btn-ornek-oku');
+
 // 3) SAYFA AÇILIŞI
 init();
 
 function init() {
+    sesMotorunuHazirla();
     butonlariBagla();
     menuIstatistikleriniGuncelle();
 }
@@ -57,56 +62,92 @@ function butonlariBagla() {
 
     document.getElementById('btn-geri').addEventListener('click', anaMenuyeDon);
 
+    if (btnSeslendirButonlari.length) {
+    btnSeslendirButonlari.forEach((buton) => {
+        ['pointerdown', 'mousedown', 'touchstart'].forEach(eventName => {
+            buton.addEventListener(eventName, (e) => {
+                e.stopPropagation();
+            }, { passive: true });
+        });
+
+        buton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            kelimeyiOku();
+        });
+    });
+}
+
+if (btnOrnekOkuButonu) {
+    ['pointerdown', 'mousedown', 'touchstart'].forEach(eventName => {
+        btnOrnekOkuButonu.addEventListener(eventName, (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+    });
+
+    btnOrnekOkuButonu.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        ornekCumleyiOku();
+    });
+}
 
     if (btnSifirla) {
-    btnSifirla.addEventListener('click', () => {
-        const onay = confirm('Kart ilerlemesi sıfırlansın mı? Öğrenilen kelimeler korunacak.');
-        if (!onay) return;
+        btnSifirla.addEventListener('click', () => {
+            const onay = confirm('Kart ilerlemesi sıfırlansın mı? Öğrenilen kelimeler korunacak.');
+            if (!onay) return;
 
-        uygulamaIlerlemesiniSifirla();
-    });
-}
+            uygulamaIlerlemesiniSifirla();
+        });
+    }
 
     if (btnProfilGit) {
-    btnProfilGit.addEventListener('click', () => {
-        if (profileHeader) {
-            profileHeader.style.display = 'none';
-        }
+        btnProfilGit.addEventListener('click', () => {
+            if (profileHeader) {
+                profileHeader.style.display = 'none';
+            }
 
-        mainMenu.style.display = 'none';
-        flashcardScreen.style.display = 'none';
-        profilScreen.style.display = 'block';
-        profilIstatistikleriniGuncelle();
-    });
-}
+            mainMenu.style.display = 'none';
+            flashcardScreen.style.display = 'none';
+            profilScreen.style.display = 'block';
+            profilIstatistikleriniGuncelle();
+        });
+    }
 
-if (btnProfilGeri) {
-    btnProfilGeri.addEventListener('click', () => {
-        if (profileHeader) {
-            profileHeader.style.display = 'flex';
-        }
+    if (btnProfilGeri) {
+        btnProfilGeri.addEventListener('click', () => {
+            if (profileHeader) {
+                profileHeader.style.display = 'flex';
+            }
 
-        profilScreen.style.display = 'none';
-        flashcardScreen.style.display = 'none';
-        mainMenu.style.display = 'block';
-    });
-}
+            profilScreen.style.display = 'none';
+            flashcardScreen.style.display = 'none';
+            mainMenu.style.display = 'block';
+        });
+    }
 
+    if (cardInner) {
+        cardInner.addEventListener('click', () => {
+            cardInner.classList.toggle('flipped');
+        });
+    }
 
+    const btnBiliyorum = document.querySelector('.btn-biliyorum');
+    const btnBilmiyorum = document.querySelector('.btn-bilmiyorum');
 
-    cardInner.addEventListener('click', () => {
-        cardInner.classList.toggle('flipped');
-    });
+    if (btnBiliyorum) {
+        btnBiliyorum.addEventListener('click', (e) => {
+            e.stopPropagation();
+            kelimeyiCevapla('biliyorum');
+        });
+    }
 
-    document.querySelector('.btn-biliyorum').addEventListener('click', (e) => {
-        e.stopPropagation();
-        kelimeyiCevapla('biliyorum');
-    });
-
-    document.querySelector('.btn-bilmiyorum').addEventListener('click', (e) => {
-        e.stopPropagation();
-        kelimeyiCevapla('bilmiyorum');
-    });
+    if (btnBilmiyorum) {
+        btnBilmiyorum.addEventListener('click', (e) => {
+            e.stopPropagation();
+            kelimeyiCevapla('bilmiyorum');
+        });
+    }
 }
 
 // 5) OYUNU BAŞLAT
@@ -165,6 +206,7 @@ function yeniTurHazirla() {
 
     kartiGoster();
 }
+
 // 7) KART GÖSTER
 function kartiGoster() {
     if (aktifKelimeler.length === 0) {
@@ -184,7 +226,10 @@ function kartiGoster() {
 
     const guncelKelime = aktifKelimeler[aktifIndex];
 
-    cardInner.classList.remove('flipped');
+    if (cardInner) {
+        cardInner.classList.remove('flipped');
+    }
+
     cardGerman.innerText = guncelKelime.almanca || '';
 
     if (guncelKelime.kategori === 'duzenli' || guncelKelime.kategori === 'duzensiz') {
@@ -272,7 +317,9 @@ function kelimeyiCevapla(yeniDurum) {
     aktifIndex++;
 
     // varsa flip animasyonu bitsin
-    cardInner.classList.remove('flipped');
+    if (cardInner) {
+        cardInner.classList.remove('flipped');
+    }
 
     setTimeout(() => {
         kartiGoster();
@@ -285,7 +332,9 @@ function anaMenuyeDon() {
     aktifKelimeler = [];
     aktifIndex = 0;
 
-    cardInner.classList.remove('flipped');
+    if (cardInner) {
+        cardInner.classList.remove('flipped');
+    }
 
     flashcardScreen.style.display = 'none';
     mainMenu.style.display = 'block';
@@ -323,7 +372,7 @@ function verileriKaydet() {
 function yukluVeriyiGetir() {
     try {
         const kayitliVeri = localStorage.getItem(STORAGE_KEY);
-        
+
         // 1. ADIM: kelimeler.js'deki ana listeyi (olası boşlukları temizleyerek) al
         const anaListe = baslangicKelimeleri.filter(k => k && k.id).map(k => ({ ...k }));
 
@@ -338,28 +387,23 @@ function yukluVeriyiGetir() {
             return anaListe;
         }
 
-        // 2. ADIM: Kayıtlı verideki olası bozuk/boş elemanları temizle (Çökmeyi kesin engeller)
+        // 2. ADIM: Kayıtlı verideki olası bozuk/boş elemanları temizle
         let temizKayitliVeri = parsed.filter(k => k && k.id);
 
-        // 3. ADIM: YENİ KELİMELERİ VE GÜNCELLEMELERİ BİRLEŞTİR (Merge)
+        // 3. ADIM: YENİ KELİMELERİ VE GÜNCELLEMELERİ BİRLEŞTİR
         anaListe.forEach(anaKelime => {
-            // Ana listedeki bu kelime, kız arkadaşının cihazında kayıtlı mı?
             const kayitliKelime = temizKayitliVeri.find(k => k.id === anaKelime.id);
-            
+
             if (!kayitliKelime) {
-                // Eğer yoksa, sen sonradan yeni kelime eklemişsin demektir. Hemen listeye ekle.
                 temizKayitliVeri.push(anaKelime);
             } else {
-                // Eğer varsa ilerlemesini (durum, ogrenildi) SAKLA,
-                // Ama metinlerde (almanca, turkce, ornek_cumle) düzeltme yaptıysan onları GÜNCELLE.
                 kayitliKelime.almanca = anaKelime.almanca;
                 kayitliKelime.artikel = anaKelime.artikel;
                 kayitliKelime.turkce = anaKelime.turkce;
                 kayitliKelime.kategori = anaKelime.kategori;
                 kayitliKelime.ornek_cumle = anaKelime.ornek_cumle;
                 kayitliKelime.ornek_cumle_turkce = anaKelime.ornek_cumle_turkce;
-                
-                // Fiil çekimleri varsa onları da güncelle
+
                 if (anaKelime.kategori === 'duzenli' || anaKelime.kategori === 'duzensiz') {
                     kayitliKelime.cek_ich = anaKelime.cek_ich;
                     kayitliKelime.cek_du = anaKelime.cek_du;
@@ -375,7 +419,6 @@ function yukluVeriyiGetir() {
         return temizKayitliVeri;
 
     } catch (error) {
-        // En kötü senaryoda (veri tamamen parçalanmışsa) çökme, sıfırdan başla
         console.error('LocalStorage verisi okunamadı. Başlangıç verisi kullanılıyor:', error);
         return baslangicKelimeleri.filter(k => k && k.id).map(k => ({ ...k }));
     }
@@ -456,7 +499,9 @@ function uygulamaIlerlemesiniSifirla() {
     aktifIndex = 0;
     aktifKategori = null;
 
-    cardInner.classList.remove('flipped');
+    if (cardInner) {
+        cardInner.classList.remove('flipped');
+    }
 
     profilScreen.style.display = 'none';
     flashcardScreen.style.display = 'none';
@@ -467,4 +512,112 @@ function uygulamaIlerlemesiniSifirla() {
     }
 
     bildirimGoster('Kart ilerlemesi sıfırlandı. Öğrenilen kelimeler korunuyor.');
+}
+
+// =========================================
+// 19) SES MOTORUNU HAZIRLA
+// =========================================
+function sesMotorunuHazirla() {
+    if (!('speechSynthesis' in window)) {
+        console.warn('Bu tarayıcı speechSynthesis desteklemiyor.');
+        return;
+    }
+
+    mevcutVoices = window.speechSynthesis.getVoices();
+
+    window.speechSynthesis.onvoiceschanged = () => {
+        mevcutVoices = window.speechSynthesis.getVoices();
+    };
+}
+
+// =========================================
+// 20) SESLENDİRME FONKSİYONU
+// =========================================
+function kelimeyiOku() {
+    if (!aktifKelimeler.length || aktifIndex >= aktifKelimeler.length) return;
+
+    if (!('speechSynthesis' in window)) {
+        bildirimGoster('Bu tarayıcı seslendirme desteklemiyor.');
+        return;
+    }
+
+    const guncelKelime = aktifKelimeler[aktifIndex];
+
+    const almancaKelime = guncelKelime?.almanca?.trim() || '';
+    const artikel = guncelKelime?.artikel?.trim() || '';
+
+    let okunacakMetin = almancaKelime;
+
+    if (guncelKelime?.kategori === 'isim' && artikel) {
+        okunacakMetin = `${artikel} ${almancaKelime}`;
+    }
+
+    if (!okunacakMetin) {
+        bildirimGoster('Okunacak kelime bulunamadı.');
+        return;
+    }
+
+    const kelimeSesi = new SpeechSynthesisUtterance(okunacakMetin);
+    kelimeSesi.lang = 'de-DE';
+    kelimeSesi.rate = 0.7;
+    kelimeSesi.pitch = 1;
+    kelimeSesi.volume = 1;
+
+    const almancaVoice =
+        mevcutVoices.find(voice => voice.lang === 'de-DE') ||
+        mevcutVoices.find(voice => voice.lang && voice.lang.startsWith('de')) ||
+        null;
+
+    if (almancaVoice) {
+        kelimeSesi.voice = almancaVoice;
+    }
+
+    try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(kelimeSesi);
+    } catch (error) {
+        console.error('Seslendirme hatası:', error);
+        bildirimGoster('Seslendirme başlatılamadı.');
+    }
+}
+
+
+function ornekCumleyiOku() {
+    if (!aktifKelimeler.length || aktifIndex >= aktifKelimeler.length) return;
+
+    if (!('speechSynthesis' in window)) {
+        bildirimGoster('Bu tarayıcı seslendirme desteklemiyor.');
+        return;
+    }
+
+    const guncelKelime = aktifKelimeler[aktifIndex];
+    const ornekCumle = guncelKelime?.ornek_cumle?.trim();
+
+    if (!ornekCumle) {
+        bildirimGoster('Bu kelime için örnek cümle yok.');
+        return;
+    }
+
+    const cumleSesi = new SpeechSynthesisUtterance(ornekCumle);
+    cumleSesi.lang = 'de-DE';
+    cumleSesi.rate = 0.65;
+    cumleSesi.pitch = 1;
+    cumleSesi.volume = 1;
+
+    const almancaVoice =
+        mevcutVoices.find(voice => voice.lang === 'de-DE') ||
+        mevcutVoices.find(voice => voice.lang && voice.lang.startsWith('de')) ||
+        null;
+
+    if (almancaVoice) {
+        cumleSesi.voice = almancaVoice;
+    }
+
+    try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(cumleSesi);
+    } catch (error) {
+        console.error('Örnek cümle seslendirme hatası:', error);
+        bildirimGoster('Örnek cümle okunamadı.');
+    }
 }
