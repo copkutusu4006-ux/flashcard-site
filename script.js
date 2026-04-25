@@ -18,6 +18,7 @@ const cardInner = document.querySelector('.flashcard');
 
 const cardGerman = document.getElementById('card-german');
 const cardTurkish = document.getElementById('card-turkish');
+const cardPlural = document.getElementById('card-plural');
 const cardArtikel = document.getElementById('card-artikel');
 const cardExample = document.getElementById('card-example');
 const cardExampleTr = document.getElementById('card-example-tr');
@@ -232,6 +233,21 @@ function kartiGoster() {
 
     cardGerman.innerText = guncelKelime.almanca || '';
 
+    // ==========================================
+    // YENİ EKLENEN ÇOĞUL (PLURAL) KONTROLÜ
+    // ==========================================
+    if (cardPlural) {
+        if (guncelKelime.cogul && guncelKelime.cogul.trim() !== '') {
+            // İstersen "Pl:" yerine "Çoğul:" yazabilirsin
+            cardPlural.innerText = guncelKelime.cogul; 
+            cardPlural.style.display = 'block';
+        } else {
+            cardPlural.innerText = '';
+            cardPlural.style.display = 'none';
+        }
+    }
+    // ==========================================
+
     if (guncelKelime.kategori === 'duzenli' || guncelKelime.kategori === 'duzensiz') {
         fiilKartiniDoldur(guncelKelime);
     } else {
@@ -403,6 +419,7 @@ function yukluVeriyiGetir() {
                 kayitliKelime.kategori = anaKelime.kategori;
                 kayitliKelime.ornek_cumle = anaKelime.ornek_cumle;
                 kayitliKelime.ornek_cumle_turkce = anaKelime.ornek_cumle_turkce;
+                kayitliKelime.cogul = anaKelime.cogul;
 
                 if (anaKelime.kategori === 'duzenli' || anaKelime.kategori === 'duzensiz') {
                     kayitliKelime.cek_ich = anaKelime.cek_ich;
