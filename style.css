@@ -258,26 +258,26 @@ h1 {
 }
 
 .btn-ses {
-    background: transparent;
+    background: #fff0f5; /* Çok hafif pembe arka plan */
     color: #b63061;
     border: none;
-    border-radius: 0;
-    padding: 0;
-    font-size: 20px;
+    border-radius: 20px; /* Hap şeklinde modern buton */
+    padding: 8px 14px;
+    font-size: 13px; /* Daha kibar bir font boyutu */
     font-weight: 700;
     cursor: pointer;
-    margin-top: 14px;
-    margin-bottom: 6px;
-    box-shadow: none;
     transition: all 0.2s ease;
-    z-index: 10;
     text-decoration: none;
-    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Emoji ile yazı arasına hafif boşluk */
+    box-shadow: 0 2px 6px rgba(182, 48, 97, 0.15);
 }
 
 .btn-ses:hover {
-    transform: scale(1.05);
-    text-decoration: none;
+    background: #fde4ec;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(182, 48, 97, 0.25);
 }
 
 .btn-ses:focus,
@@ -299,13 +299,21 @@ h1 {
     align-items: center;
 }
 
+/* =========================================
+   5. İÇERİK DETAYLARI (İSİMLER)
+   ========================================= */
 .artikel {
-    font-size: 24px;
-    font-weight: 800;
-    color: #0f766e;
-    margin: 0 0 15px 0;
+    font-size: 14px; /* Çok büyüktü, kibarlaştırdık */
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #0f766e; /* Koyu yeşil arka plan */
+    padding: 4px 14px;
+    border-radius: 20px; /* Hap (pill) görünümü */
+    display: inline-block; 
+    margin: 0 auto 15px auto;
     text-transform: lowercase;
-    width: 100%;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(15, 118, 110, 0.3);
 }
 
 #card-turkish {
@@ -314,24 +322,29 @@ h1 {
 }
 
 #example-container {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #ddd;
+    margin-top: 10px;
+    padding: 12px 15px;
+    background-color: #f4f6f8; /* Çok hafif, ferah bir gri */
+    border-radius: 12px; /* Yuvarlak köşeler */
+    border-top: none; /* Kesik çizgiyi sildik */
     width: 100%;
+    box-sizing: border-box;
 }
 
 .example-de {
     font-style: italic;
+    font-weight: 600;
     color: #2c3e50;
-    font-size: 15px;
-    margin-bottom: 4px;
+    font-size: 14px;
+    margin-bottom: 6px;
     width: 100%;
 }
 
 .example-tr {
     font-size: 13px;
-    color: #95a5a6;
+    color: #7f8c8d;
     width: 100%;
+    margin-bottom: 0;
 }
 
 /* =========================================
@@ -542,8 +555,21 @@ h1 {
 
 .card-ses-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Alt alta değil, yan yana dizecek */
+    justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
+    gap: 12px; /* İki buton arası boşluk */
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* =========================================
+   9. ÇOĞUL (PLURAL) METNİ STİLİ
+   ========================================= */
+.plural-text {
+    font-size: 24px; /* H2 (ana kelime) ile aynı büyüklükte olması için büyüttük */
+    color: #e66767; /* Göz yormayan, yumuşak bir pastel kırmızı */
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-weight: bold; /* İtalikliği kaldırdık, ana kelime gibi tok durması için bold yaptık */
 }
